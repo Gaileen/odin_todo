@@ -1,0 +1,47 @@
+html, body {
+    font-family: sans-serif;
+    height: 100%;
+    margin: 0;
+}
+
+:root {
+    --light-blue: rgb(17, 160, 255);
+    --light-gray: rgb(241, 241, 241);
+    --text-padding: 10px;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 20% 80%;
+    height: 100%;
+}
+
+/* Sidebar styling */
+.sidebar-container {
+    background-color: var(--light-blue);
+    color: white;
+    padding: var(--text-padding);
+}
+
+/* Todo container styling */
+.todo-container {
+    background-color: white;
+    display: grid;
+    grid-template-rows: 200px;
+}
+
+.todo-container > header {
+    position: relative;
+    padding: var(--text-padding);
+}
+
+header > h1 {
+    position: absolute;
+    bottom: 0;
+}
+
+/* Actual List styling */
+.todo-container > .checklist {
+    background-color: var(--light-gray);
+    padding: var(--text-padding);
+}
