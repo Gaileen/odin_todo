@@ -12,17 +12,32 @@
          <div class="sidebar-container">
             <h2>Projects</h2>
 
+            <!-- Form modal to add proj. -->
+            <dialog id="dialog-add-proj">
+                <button type="button" id="close-modal-proj">X</button>
+                <form id="form-add-proj" action="#" method="post">
+                    <fieldset>
+                        <div>
+                            <label for="title-input-proj">Title: </label>
+                            <input type="text" id="title-input-proj" name="title-input-proj">
+                        </div>
+                    </fieldset>
+                    <button type="submit" id="submit-add-proj" class="submit-btn">Submit</button>
+                </form>
+            </dialog>
+
+            <!-- Btn to add more projects. -->
+            <button id="add-proj-btn" type="button">+</button>
+
             <div class="projects-list">
-                <div id="proj-default">Default</div>
+                <!-- Usr-created proj divs added here. -->
             </div>
          </div>
 
         <!-- Todo Content -->
          <div class="todo-container">
              <header>
-                <h1>
-                    [Project Name / Default] Todo List
-                </h1>
+                <h1 id="project-header"></h1>
             </header>
              
              <div class="checklist"></div>

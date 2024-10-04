@@ -23,6 +23,10 @@ html, body {
     padding: var(--text-padding);
 }
 
+#proj-default {
+    border-bottom: black;
+}
+
 /* Todo container styling */
 .todo-container {
     background-color: white;
