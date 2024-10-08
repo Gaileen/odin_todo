@@ -1,12 +1,15 @@
 // DOM manipulation for generating todo list.
 
 import createTodo from "./checklist";
-import { getProj, proj_list } from "./projects";
-import { curr_proj_displayed } from "./sidebar";
+import { getProj, resaveProjs } from "./projects";
+
+// let proj_list = JSON.parse(localStorage.getItem("proj_list"));
+// let curr_proj_displayed = localStorage.getItem("curr_proj_displayed");
 
 // Loads everything for the checklist container.
 const loadChecklist = () => {
-    loadTodos();
+    let curr_proj_displayed = localStorage.getItem("curr_proj_displayed");
+    loadTodos(curr_proj_displayed);
 }
 
 // Set up Todo Btn.
@@ -21,19 +24,24 @@ function loadAddTodoBtn() {
         // Add todo to (selected proj and) Default proj.
         const default_proj = getProj("Default");
         if (proj_title !== "") {
-            const proj = getProj(proj_title);
+            const proj = getProj(proj_title); // *a new Proj obj.
             const new_todo = createTodo(title, desc, date, proj.length);
             proj.addTodo(new_todo);
+            resaveProjs(proj);
+
             default_proj.addTodo(new_todo);
+            resaveProjs(default_proj);
         } else {
             const new_todo = createTodo(title, desc, date, default_proj.length);
             default_proj.addTodo(new_todo);
+            resaveProjs(default_proj);
         }
+        let curr_proj_displayed = localStorage.getItem("curr_proj_displayed");
         loadTodos(curr_proj_displayed);
     });
 }
 
-const loadTodos = (proj_title="Default") => {
+const loadTodos = (proj_title) => {
     const container = document.querySelector(".checklist-container");
     container.innerHTML = ``;
     loadTodoForm(container);
@@ -41,7 +49,11 @@ const loadTodos = (proj_title="Default") => {
 
     // Get project of curr page and load its Todos.
     const proj = getProj(proj_title);
-    proj.getList().forEach(todo => {
+    console.log(proj_title, proj.p_todo_list);
+    // console.log(proj);
+    // console.log(proj.getList());
+    // proj.getList().forEach(todo => {
+    proj.p_todo_list.forEach(todo => {
         const todo_card = document.createElement("div");
         todo_card.classList.add("todo-card");
         todo_card.id = todo.t_id;
@@ -78,6 +90,7 @@ const loadTodos = (proj_title="Default") => {
                 todo.is_done = false;
                 title.style.textDecoration = "none";
             }
+            localStorage.setItem(proj_title, proj);
         });
     });
 };
@@ -86,7 +99,7 @@ function loadTodoForm(container) {
     const todo_form = document.createElement("form");
     todo_form.classList.add("todo-card");
     todo_form.id = "form-add-todo";
-    todo_form.action = "#";
+    todo_form.action = "";
     todo_form.innerHTML = `
         <fieldset>
             <label for="title-in-todo">Title: </label>
@@ -117,6 +130,7 @@ function loadTodoForm(container) {
 }
 
 function loadDropdown(select_div) {
+    let proj_list = JSON.parse(localStorage.getItem("proj_list"));
     proj_list.forEach(proj => {
         const opt = document.createElement("option");
         opt.value = proj.p_title;

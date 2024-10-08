@@ -1,10 +1,10 @@
 // Sidebar DOM Manipulation here ONLY.
 
-import { proj_list } from "./projects";
-import { loadTodos } from "./load_checklist";
+import { loadChecklist } from "./load_checklist";
+import loadHeader from "./header";
 
-// (STRING) The curr project being displayed.
-let curr_proj_displayed = "Default";
+// let proj_list = JSON.parse(localStorage.getItem("proj_list"));
+// let curr_proj_displayed = localStorage.getItem("curr_proj_displayed");
 
 // Add Proj Btn.
 function loadAddBtn() {
@@ -17,11 +17,15 @@ function loadAddBtn() {
 
 // Make divs for projects in sidebar.
 function loadProjects() {
+    let proj_list = JSON.parse(localStorage.getItem("proj_list"));
+    let curr_proj_displayed = localStorage.getItem("curr_proj_displayed");
+
     const sidebar = document.querySelector(".projects-list");
     sidebar.innerHTML = ``;
 
     // Make nav divs for ea proj in sidebar.
     proj_list.forEach((proj) => {
+        console.log("Side loading proj: " + proj);
         const proj_div = document.createElement("div");
         proj_div.classList.add("project"); 
         proj_div.id = "project" + proj.id;
@@ -30,8 +34,10 @@ function loadProjects() {
 
         // Add event listener so users can see the proj's todos.
         proj_div.addEventListener("click", () => {
-            curr_proj_displayed = proj_div.textContent;
-            loadTodos(curr_proj_displayed);
+            localStorage.setItem("curr_proj_displayed", proj_div.textContent);
+            loadHeader();
+            // loadTodos(curr_proj_displayed);
+            loadChecklist();
         });
     });
 }
@@ -42,4 +48,4 @@ const loadSidebar = () => {
     loadProjects();
 };
 
-export { loadSidebar, loadProjects, curr_proj_displayed };
+export { loadSidebar, loadProjects };

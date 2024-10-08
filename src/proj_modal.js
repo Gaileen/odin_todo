@@ -1,11 +1,14 @@
 // DOM Manipulation for modal for adding a proj.
 
 import { addToProjList } from "./projects";
-import { loadProjects, curr_proj_displayed } from "./sidebar";
+import { loadProjects } from "./sidebar";
 import { loadTodos } from "./load_checklist";
+
+// let curr_proj_displayed = localStorage.getItem("curr_proj_displayed");
 
 // Add Proj modal. Set up its btns.
 const processModal_p = () => {
+    let curr_proj_displayed = localStorage.getItem("curr_proj_displayed");
     // Get title & make proj obj once usr submits.
     const modal = document.getElementById("dialog-add-proj");
     const submit = document.getElementById("submit-add-proj");
@@ -24,7 +27,6 @@ const processModal_p = () => {
         // Reload Todo form's proj dropdown.
         loadTodos(curr_proj_displayed);
     });
-    //submit.removeEventListener("click", processProj);
 
     // Close modal btn.
     const close_btn = document.getElementById("close-modal-proj");
