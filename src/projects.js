@@ -17,7 +17,6 @@ function createProj(title, id) {
     const addTodo = (todo) => {
         todo_list.push(todo);
         // can worry abt "priority" stuff l8r
-        console.log("Added to proj list!");
     };
 
     const removeTodo = () => {
@@ -30,12 +29,21 @@ function createProj(title, id) {
 function addToProjList(title) {
     let id = proj_list.length;
     proj_list.push(createProj(title, id));
-    // console.log("Added to project list.");
-    // console.log(proj_list);
+}
+
+// Get project from proj_list given name
+function getProj(title) {
+    for (const proj of proj_list) {
+        if (proj.p_title === title) {
+            // Assumes no project has the same name.
+            return proj;
+        }
+    }
+    throw new Error(`"${title}" not found.`);
 }
 
 // Assignment wants there to always be a "Default" proj.
 addToProjList("Default");
 
 
-export { createProj, addToProjList, proj_list };
+export { createProj, addToProjList, getProj, proj_list };

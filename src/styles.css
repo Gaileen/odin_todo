@@ -44,8 +44,30 @@ header > h1 {
     bottom: 0;
 }
 
-/* Actual List styling */
-.todo-container > .checklist {
+.checklist-container {
     background-color: var(--light-gray);
     padding: var(--text-padding);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 300px));
+    grid-template-rows: repeat(auto-fit, 150px);
+    gap: 10px;
+}
+
+/* Todo form styling */
+#form-add-todo > fieldset {
+    height: 100%;
+    border: none;
+}
+#submit-todo {
+    margin-top: 30px;
+}
+
+/* Actual List styling */
+.todo-card {
+    background-color: white;
+    padding: 10px;
+}
+
+.todo-card > h3 {
+    margin: 0;
 }

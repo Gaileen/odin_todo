@@ -1,6 +1,10 @@
 // Sidebar DOM Manipulation here ONLY.
 
 import { proj_list } from "./projects";
+import { loadTodos } from "./load_checklist";
+
+// (STRING) The curr project being displayed.
+let curr_proj_displayed = "Default";
 
 // Add Proj Btn.
 function loadAddBtn() {
@@ -26,8 +30,8 @@ function loadProjects() {
 
         // Add event listener so users can see the proj's todos.
         proj_div.addEventListener("click", () => {
-            //console.log("Opening this project...");
-            //TODO
+            curr_proj_displayed = proj_div.textContent;
+            loadTodos(curr_proj_displayed);
         });
     });
 }
@@ -38,4 +42,4 @@ const loadSidebar = () => {
     loadProjects();
 };
 
-export { loadSidebar, loadProjects };
+export { loadSidebar, loadProjects, curr_proj_displayed };
